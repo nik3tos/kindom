@@ -21,6 +21,7 @@ var gold = 0
 var state = MOVE
 var run_speed = 1
 var combo = false
+var attack_cooldown = false
 
 func _ready():
 	# Подключаем сигнал окончания анимации
@@ -93,8 +94,9 @@ func move_state():
 			animPlayer.play("Slide") # Запускаем анимацию один раз при входе
 			
 	# ВОТ ЗДЕСЬ БЫЛА ОШИБКА
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and attack_cooldown == false:
 		start_attack(ATTACK, "Attack")
+		
 
 # Вспомогательная функция для старта атаки
 func start_attack(new_state, anim_name):
@@ -116,6 +118,7 @@ func attack_state():
 	# Тут мы просто ждем ввода для комбо. Анимация уже играет.
 	if Input.is_action_just_pressed("attack") and combo == true:
 		start_attack(ATTACK2, "Attack2")
+	attack_freeze()
 
 func attack2_state():  
 	if Input.is_action_just_pressed("attack") and combo == true:
@@ -139,5 +142,11 @@ func _on_animation_finished(anim_name):
 # в тех кадрах анимации, где разрешено комбо
 func combo1():
 	combo = true
+	await animPlayer.animation_finished
+	combo = false
 	# Комбо открывается на короткое время, можно использовать таймер
 	# или выключить его в конце анимации
+func attack_freeze ():
+	attack_cooldown = true
+	await get_tree().create_timer(1).timeout
+	attack_cooldown = false

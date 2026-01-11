@@ -1,10 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvdcmxy2tx271"]
+[gd_scene load_steps=20 format=3 uid="uid://cvdcmxy2tx271"]
 
+[ext_resource type="Script" uid="uid://ccyypws5vloij" path="res://level.gd" id="1_n6hdu"]
 [ext_resource type="PackedScene" uid="uid://djk84oc7hqrmf" path="res://Player/player.tscn" id="1_u52ul"]
 [ext_resource type="Texture2D" uid="uid://ilxukq3m87rk" path="res://oak_woods_v1.0/background/background_layer_1.png" id="2_f2txt"]
 [ext_resource type="Texture2D" uid="uid://t5frenehoo7q" path="res://oak_woods_v1.0/background/background_layer_2.png" id="3_1ainy"]
 [ext_resource type="Texture2D" uid="uid://vjt174pm0703" path="res://oak_woods_v1.0/background/background_layer_3.png" id="4_n6hdu"]
+[ext_resource type="PackedScene" uid="uid://bwtj0wrqdhie8" path="res://Build/shop.tscn" id="5_i2t4f"]
 [ext_resource type="Texture2D" uid="uid://bm20j0chkjtwi" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="5_km5ld"]
+[ext_resource type="Texture2D" uid="uid://ddx2rylfsl0sr" path="res://oak_woods_v1.0/circle.png" id="8_km5ld"]
+[ext_resource type="PackedScene" uid="uid://dbc0uhwssk1ju" path="res://Mobs/skeleton.tscn" id="9_i2t4f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i2t4f"]
 texture = ExtResource("5_km5ld")
@@ -451,6 +455,58 @@ func _process(_delta: float) -> void:
 	text = \"GOLD: \" + str($\"../../Player/Player\".gold)
 "
 
+[sub_resource type="Animation" id="Animation_km5ld"]
+resource_name = "day_text_fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.7411765)]
+}
+
+[sub_resource type="Animation" id="Animation_i2t4f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8cye3"]
+resource_name = "day_text_fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.7764706), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2orkt"]
+_data = {
+&"RESET": SubResource("Animation_i2t4f"),
+&"day_text_fade_in": SubResource("Animation_km5ld"),
+&"day_text_fade_out": SubResource("Animation_8cye3")
+}
+
 [sub_resource type="GDScript" id="GDScript_n6hdu"]
 script/source = "extends Node2D
 
@@ -464,9 +520,14 @@ var gold = preload(\"res://Collectibles/gold.tscn\")
 	#add_child(goldTemp)
 "
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_km5ld"]
+polygon = PackedVector2Array(-5089, 593, -5089, 734, 5152, 736, 5152, 590)
+
 [node name="Level" type="Node2D"]
+script = ExtResource("1_n6hdu")
 
 [node name="BG" type="ParallaxBackground" parent="."]
+layer = -1
 offset = Vector2(0, 260)
 scale = Vector2(0.5, 0.5)
 transform = Transform2D(0.5, 0, 0, 0.5, 0, 260)
@@ -476,8 +537,8 @@ motion_scale = Vector2(0.2, 0)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="BackgroundLayer1" type="Sprite2D" parent="BG/ParallaxLayer"]
-position = Vector2(576, 324)
-scale = Vector2(3.6000004, 3.6)
+position = Vector2(576, 204.00002)
+scale = Vector2(3.6000004, 4.9333334)
 texture = ExtResource("2_f2txt")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="BG"]
@@ -485,17 +546,20 @@ motion_scale = Vector2(0.5, 1)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="BackgroundLayer2" type="Sprite2D" parent="BG/ParallaxLayer2"]
-position = Vector2(576.00006, 324)
-scale = Vector2(3.6000004, 3.5999997)
+position = Vector2(576.00006, 204.99998)
+scale = Vector2(3.6000004, 4.922222)
 texture = ExtResource("3_1ainy")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="BG"]
 motion_mirroring = Vector2(1152, 0)
 
 [node name="BackgroundLayer3" type="Sprite2D" parent="BG/ParallaxLayer3"]
-position = Vector2(575.99994, 324)
-scale = Vector2(3.5999997, 3.6000001)
+position = Vector2(575.99994, 205)
+scale = Vector2(3.5999997, 4.9222226)
 texture = ExtResource("4_n6hdu")
+
+[node name="Shop" parent="." instance=ExtResource("5_i2t4f")]
+position = Vector2(335, 530)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_8cye3")
@@ -505,7 +569,7 @@ layer_0/tile_data = PackedInt32Array(2359296, 65536, 0, 2359297, 131072, 0, 2359
 [node name="Player" type="Node2D" parent="."]
 
 [node name="Player" parent="Player" instance=ExtResource("1_u52ul")]
-position = Vector2(239, 409)
+position = Vector2(166, 513)
 
 [node name="Mobs" type="Node2D" parent="."]
 
@@ -529,9 +593,56 @@ theme_override_font_sizes/font_size = 30
 text = "GOLD"
 script = SubResource("GDScript_km5ld")
 
+[node name="DayText" type="Label" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 565.0
+offset_top = 191.0
+offset_right = 762.0
+offset_bottom = 331.0
+theme_override_font_sizes/font_size = 80
+text = "DAY"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_2orkt")
+}
+
 [node name="Collectibles" type="Node2D" parent="."]
 script = SubResource("GDScript_n6hdu")
 
 [node name="Timer" type="Timer" parent="Collectibles"]
 wait_time = 3.0
 autostart = true
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.2
+blend_mode = 1
+range_layer_min = -1
+
+[node name="DayNight" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(384, 547)
+scale = Vector2(0.26369545, 0.26369545)
+color = Color(1, 0.32156864, 0.5686275, 1)
+energy = 1.5
+shadow_enabled = true
+texture = ExtResource("8_km5ld")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(286.99997, 547)
+scale = Vector2(0.31781247, 0.31781247)
+color = Color(1, 0.32156864, 0.5686275, 1)
+energy = 1.5
+shadow_enabled = true
+texture = ExtResource("8_km5ld")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_km5ld")
+
+[node name="skeleton" parent="." instance=ExtResource("9_i2t4f")]
+position = Vector2(-127, 545)
+
+[connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]
