@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dbc0uhwssk1ju"]
+[gd_scene load_steps=43 format=3 uid="uid://dbc0uhwssk1ju"]
 
 [ext_resource type="Texture2D" uid="uid://1ymob2i2hp41" path="res://Skeleton/Take Hit.png" id="1_6kuho"]
 [ext_resource type="Script" uid="uid://r0e1ls8to66b" path="res://Mobs/skeleton.gd" id="1_wwbpb"]
@@ -130,7 +130,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bwne6")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack",
 "speed": 10.0
 }, {
@@ -198,7 +198,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rwcb5")
 }],
-"loop": true,
+"loop": false,
 "name": &"Take Hit",
 "speed": 10.0
 }]
@@ -364,7 +364,11 @@ _data = {
 &"Take Hit": SubResource("Animation_3o3t3")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjg8j"]
+size = Vector2(28, 26)
+
 [node name="skeleton" type="CharacterBody2D"]
+collision_layer = 5
 script = ExtResource("1_wwbpb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -380,6 +384,8 @@ shape = SubResource("CapsuleShape2D_m6nr3")
 
 [node name="Detector" type="Area2D" parent="."]
 visible = false
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
 shape = SubResource("CircleShape2D_wwbpb")
@@ -402,7 +408,19 @@ libraries = {
 &"": SubResource("AnimationLibrary_lgk6n")
 }
 
+[node name="AttackDirection" type="Node2D" parent="."]
+
+[node name="AttackRange" type="Area2D" parent="AttackDirection"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDirection/AttackRange"]
+position = Vector2(8, -3)
+shape = SubResource("RectangleShape2D_cjg8j")
+
 [connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]
 [connection signal="body_exited" from="Detector" to="." method="_on_detector_body_exited"]
 [connection signal="body_entered" from="Death" to="." method="_on_death_body_entered"]
 [connection signal="body_entered" from="Death2" to="." method="_on_death_2_body_entered"]
+[connection signal="body_entered" from="AttackDirection/AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackDirection/AttackRange" to="." method="_on_attack_range_body_exited"]
