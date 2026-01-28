@@ -10,7 +10,7 @@ var alive = true
 
 # Состояния
 var attacking = false
-var player_in_range = false 
+var player_in_range = false
 
 func _ready():
 	# Подключаем сигнал окончания анимации
@@ -19,24 +19,24 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	
+
 	var player = $"../../Player/Player"
-	
+
 	if alive:
 		if attacking:
 			# 1. Если атакуем - стоим на месте и ждем конца анимации
 			velocity.x = 0
-		
+
 		elif player_in_range:
 			# 2. Если не атакуем, но игрок рядом - НАЧИНАЕМ атаку
 			start_attack()
-			
+
 		elif chase:
 			# 3. Если игрок далеко, но мы его видим - бежим
 			var direction = (player.position - self.position).normalized()
 			velocity.x = direction.x * speed
 			anim.play("Run")
-			
+
 			if direction.x < 0:
 				anim.flip_h = true
 			else:
@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 			# 4. Иначе стоим
 			velocity.x = 0
 			anim.play("Idel") # Используем Idel, так как у вас так названо в спрайтах
-		
+
 	move_and_slide()
 
 # Функция запуска атаки
