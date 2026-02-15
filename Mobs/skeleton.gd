@@ -11,6 +11,7 @@ var alive = true
 # Состояния
 var attacking = false
 var player_in_range = false
+
 func _ready():
 	# Подключаем сигнал окончания анимации
 	animPlayer.animation_finished.connect(_on_animation_finished)
@@ -19,7 +20,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	var player = $"../../Player/Player"
+	var player = $"../../Player/Player" # Тут используется прямой путь
 
 	if alive:
 		if attacking:
@@ -32,18 +33,19 @@ func _physics_process(delta: float) -> void:
 
 		elif chase:
 			# 3. Если игрок далеко, но мы его видим - бежим
-			var direction = (player.position - self.position).normalized()
-			velocity.x = direction.x * speed
-			anim.play("Run")
+			if player: # Проверка на всякий случай
+				var direction = (player.position - self.position).normalized()
+				velocity.x = direction.x * speed
+				anim.play("Run")
 
-			if direction.x < 0:
-				anim.flip_h = true
-			else:
-				anim.flip_h = false
+				if direction.x < 0:
+					anim.flip_h = true
+				else:
+					anim.flip_h = false
 		else:
 			# 4. Иначе стоим
 			velocity.x = 0
-			anim.play("Idel") # Используем Idel, так как у вас так названо в спрайтах
+			anim.play("Idel")
 
 	move_and_slide()
 
@@ -61,18 +63,17 @@ func _on_animation_finished(anim_name):
 		if player_in_range:
 			damage_player()
 
+# --- ИСПРАВЛЕННАЯ ЧАСТЬ ---
+# Мы создали функцию, которой не хватало, и исправили отступы (используем Tab)
 func damage_player():
-	# Ищем узел, у которого есть скрипт игрока и метод take_damage
-	var players = get_tree().get_nodes_in_group("player_group") # Вариант через группы (ниже объясню)
-	
-	# Самый надежный способ: поиск по типу или во всей сцене
-	var player = get_tree().current_scene.find_child("Player", true, false)
-	
-	if player and player.has_method("take_damage"):
-		print("Скелет попал по игроку!") # Для теста
-		player.take_damage(10, global_position)
+	var player_node = get_tree().get_first_node_in_group("player_group")
+
+	if player_node and player_node.has_method("take_damage"):
+		print("Скелет нашел игрока через группу!")
+		player_node.take_damage(10, global_position)
 	else:
-		print("Скелет не нашел игрока! Проверь имя узла.")
+		print("ОШИБКА: Игрок не найден или не добавлен в группу 'player_group'")
+# --------------------------
 
 # --- СИГНАЛЫ ---
 
@@ -88,7 +89,6 @@ func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		player_in_range = true
 
-# ВАЖНО: Эту функцию нужно подключить через редактор (см. Шаг 2)
 func _on_attack_range_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		player_in_range = false
@@ -102,7 +102,9 @@ func _on_death_body_entered(body: Node2D) -> void:
 func _on_death_2_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		if alive:
-			body.health -= 40
+			# Проверка есть ли у игрока здоровье, чтобы не крашнулось
+			if "health" in body:
+				body.health -= 40
 		death()
 
 func death():

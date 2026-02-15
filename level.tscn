@@ -566,10 +566,10 @@ texture_progress = ExtResource("7_8cye3")
 
 [node name="GameOverScreen" type="ColorRect" parent="CanvasLayer"]
 visible = false
+modulate = Color(0.105882354, 0.003921569, 0.003921569, 0.8352941)
 offset_left = -1.0
 offset_right = 1154.0
 offset_bottom = 647.0
-color = Color(0.105882354, 0.003921569, 0.003921569, 0.8352941)
 
 [node name="Label" type="Label" parent="CanvasLayer/GameOverScreen"]
 layout_mode = 0
