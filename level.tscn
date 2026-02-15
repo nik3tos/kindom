@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cvdcmxy2tx271"]
+[gd_scene load_steps=19 format=3 uid="uid://cvdcmxy2tx271"]
 
 [ext_resource type="Script" uid="uid://ccyypws5vloij" path="res://level.gd" id="1_n6hdu"]
 [ext_resource type="PackedScene" uid="uid://djk84oc7hqrmf" path="res://Player/player.tscn" id="1_u52ul"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://vjt174pm0703" path="res://oak_woods_v1.0/background/background_layer_3.png" id="4_n6hdu"]
 [ext_resource type="PackedScene" uid="uid://bwtj0wrqdhie8" path="res://Build/shop.tscn" id="5_i2t4f"]
 [ext_resource type="Texture2D" uid="uid://bm20j0chkjtwi" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="5_km5ld"]
+[ext_resource type="Texture2D" uid="uid://cifm3n5qxriyy" path="res://aaw6zrcrn-removebg-preview.png" id="7_8cye3"]
 [ext_resource type="Texture2D" uid="uid://ddx2rylfsl0sr" path="res://oak_woods_v1.0/circle.png" id="8_km5ld"]
 [ext_resource type="PackedScene" uid="uid://dbc0uhwssk1ju" path="res://Mobs/skeleton.tscn" id="9_i2t4f"]
 
@@ -428,34 +429,6 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_i2t4f")
 
-[sub_resource type="GDScript" id="GDScript_1ainy"]
-script/source = "extends Label
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	text = \"HP: \" + str($\"../../Player/Player\".health)
-"
-
-[sub_resource type="GDScript" id="GDScript_km5ld"]
-script/source = "extends Label
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	text = \"GOLD: \" + str($\"../../Player/Player\".gold)
-"
-
 [sub_resource type="Animation" id="Animation_i2t4f"]
 length = 0.001
 tracks/0/type = "value"
@@ -569,24 +542,6 @@ layer_0/tile_data = PackedInt32Array(2359296, 65536, 0, 2359297, 131072, 0, 2359
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 23.0
-offset_top = 8.0
-offset_right = 191.0
-offset_bottom = 105.0
-theme_override_font_sizes/font_size = 30
-text = "HP"
-script = SubResource("GDScript_1ainy")
-
-[node name="Label2" type="Label" parent="CanvasLayer"]
-offset_left = 26.0
-offset_top = 46.0
-offset_right = 110.0
-offset_bottom = 88.0
-theme_override_font_sizes/font_size = 30
-text = "GOLD"
-script = SubResource("GDScript_km5ld")
-
 [node name="DayText" type="Label" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0)
 offset_left = 565.0
@@ -600,6 +555,39 @@ text = "DAY"
 libraries = {
 &"": SubResource("AnimationLibrary_2orkt")
 }
+
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = -6.0
+offset_top = -87.0
+offset_right = 394.0
+offset_bottom = 213.0
+value = 100.0
+texture_progress = ExtResource("7_8cye3")
+
+[node name="GameOverScreen" type="ColorRect" parent="CanvasLayer"]
+visible = false
+offset_left = -1.0
+offset_right = 1154.0
+offset_bottom = 647.0
+color = Color(0.105882354, 0.003921569, 0.003921569, 0.8352941)
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverScreen"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 100.0
+offset_right = 197.0
+offset_bottom = 123.0
+scale = Vector2(7.63, 7.63)
+text = "ИГРА ОКОНЧЕНА"
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverScreen"]
+layout_mode = 0
+offset_left = 324.0
+offset_top = 372.0
+offset_right = 491.0
+offset_bottom = 403.0
+scale = Vector2(3, 3)
+text = "Попробовать снова"
 
 [node name="Collectibles" type="Node2D" parent="."]
 script = SubResource("GDScript_n6hdu")

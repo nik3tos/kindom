@@ -4,6 +4,8 @@ extends Node2D
 @onready var point_lights = [$PointLight2D, $PointLight2D2] 
 @onready var day_text = $CanvasLayer/DayText
 @onready var animPlayer = $CanvasLayer/AnimationPlayer
+@onready var health_bar = $CanvasLayer/HealthBar
+@onready var player_node = $Player/Player
 
 enum {
 	MORNING,
@@ -21,6 +23,10 @@ func _ready():
 	set_day_text()
 	# При старте сразу ставим утро
 	change_state(MORNING)
+	
+	# Тот самый фрагмент, где могла закрасться ошибка:
+	if player_node and health_bar:
+		health_bar.value = player_node.health
 
 # Вспомогательная функция для фонарей (без изменений)
 func animate_lamps(tween: Tween, target_energy: float, duration: float):

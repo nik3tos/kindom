@@ -16,8 +16,18 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var anim = $AnimatedSprite2D
 @onready var animPlayer = $AnimationPlayer
-var health = 100
-var gold = 0
+@onready var game_over_screen = get_tree().current_scene.find_child("GameOverScreen", true, false)
+var health = 100:
+	set(value):
+		health = clamp(value, 0, 100) # Здесь должен быть Tab
+		update_health_bar()           # И здесь тоже Tab
+
+func update_health_bar():
+	# Ищем полоску на уровне
+	var bar = get_tree().current_scene.find_child("HealthBar", true, false)
+	if bar:
+		var tween = create_tween()
+		tween.tween_property(bar, "value", health, 0.2)
 var state = MOVE
 var run_speed = 1
 var combo = false
@@ -26,6 +36,18 @@ var attack_cooldown = false
 func _ready():
 	# Подключаем сигнал окончания анимации
 	animPlayer.animation_finished.connect(_on_animation_finished)
+
+func die():
+	set_physics_process(false) # Отключаем управление
+	animPlayer.play("Death")
+	
+	# Плавное появление экрана смерти
+	game_over_screen.visible = true
+	game_over_screen.modulate.a = 0 # Делаем его сначала невидимым
+	
+	var tween = create_tween()
+	# За полсекунды делаем его прозрачность нормальной (1.0)
+	tween.tween_property(game_over_screen, "modulate:a", 1.0, 0.5)
 
 func _physics_process(delta: float) -> void:
 	# Гравитация
@@ -150,3 +172,25 @@ func attack_freeze ():
 	attack_cooldown = true
 	await get_tree().create_timer(1).timeout
 	attack_cooldown = false
+func take_damage(amount: int, enemy_pos: Vector2):
+	if health <= 0: return
+	
+	# Используем self.health, чтобы сработал сеттер и обновилась полоска
+	self.health -= amount
+	
+	# Эффект отталкивания
+	var knockback_direction = (global_position - enemy_pos).normalized()
+	velocity = knockback_direction * 400 
+	move_and_slide()
+	
+	# Анимация вспышки (Красный цвет)
+	if anim:
+		var tween = create_tween()
+		# Красим в красный за 0.1 сек
+		tween.tween_property(anim, "modulate", Color.RED, 0.1)
+		# Возвращаем обычный цвет за 0.1 сек
+		tween.tween_property(anim, "modulate", Color.WHITE, 0.1)
+	
+	animPlayer.play("Take Hit")
+func _on_restart_button_pressed() -> void:
+	get_tree().reload_current_scene() # Перезагружает уровень
