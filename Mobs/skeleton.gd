@@ -11,7 +11,6 @@ var alive = true
 # Состояния
 var attacking = false
 var player_in_range = false
-
 func _ready():
 	# Подключаем сигнал окончания анимации
 	animPlayer.animation_finished.connect(_on_animation_finished)

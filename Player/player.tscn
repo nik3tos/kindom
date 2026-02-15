@@ -1015,7 +1015,7 @@ _data = {
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_k53q1"]
 polygon = PackedVector2Array(-116.666664, 400.00003, -133.33333, 450.00003, 116.666664, 450.00003, 100, 400.00003)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player_group"]]
 collision_layer = 2
 script = ExtResource("1_4ntmi")
 
