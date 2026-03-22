@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://bwtj0wrqdhie8"]
+[gd_scene format=3 uid="uid://bwtj0wrqdhie8"]
 
+[ext_resource type="Script" uid="uid://pr2w7qmjjx44" path="res://Build/shop.gd" id="1_jxx1l"]
 [ext_resource type="Texture2D" uid="uid://cw71xmr1w4em0" path="res://oak_woods_v1.0/decorations/shop_anim.png" id="1_lpta5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jxx1l"]
@@ -55,12 +56,13 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Shop" type="Area2D"]
+[node name="Shop" type="Area2D" unique_id=1813940363]
+script = ExtResource("1_jxx1l")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1265650111]
 shape = SubResource("CircleShape2D_jxx1l")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=106037502]
 position = Vector2(0, -18)
 sprite_frames = SubResource("SpriteFrames_khgxt")
 autoplay = "default"

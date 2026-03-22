@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxvigdi2tlv3w"
-path="res://.godot/imported/MonedaP.png-5e4a10429367134f066a4a863b6c8399.ctex"
+uid="uid://dqxowf4jvkqfw"
+path="res://.godot/imported/spr_coin_azu.png-a04fd024c15044e6f9c931e64081d801.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://oak_woods_v1.0/Coin_Gems (1)/MonedaP.png"
-dest_files=["res://.godot/imported/MonedaP.png-5e4a10429367134f066a4a863b6c8399.ctex"]
+source_file="res://Collectibles/Coin_Gems (1)/spr_coin_azu.png"
+dest_files=["res://.godot/imported/spr_coin_azu.png-a04fd024c15044e6f9c931e64081d801.ctex"]
 
 [params]
 

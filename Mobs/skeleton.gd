@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var gold_scene: PackedScene = preload("res://Collectibles/gold.tscn")
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var chase = false
@@ -108,6 +110,9 @@ func _on_death_2_body_entered(body: Node2D) -> void:
 		death()
 
 func death():
+	var coin = gold_scene.instantiate()
+	coin.global_position = global_position
+	get_tree().current_scene.add_child(coin)
 	alive = false
 	anim.play("Death")
 	await anim.animation_finished

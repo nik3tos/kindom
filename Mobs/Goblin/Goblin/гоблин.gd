@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+# Мы говорим игре: "Под этим именем ищи файл сцены золота"
+@export var gold_scene: PackedScene = preload("res://Collectibles/gold.tscn")
+
 # --- НАСТРОЙКИ ---
 var speed = 115          # Скорость бега
 var health = 60          # Здоровье гоблина
@@ -100,10 +103,16 @@ func die():
 	alive = false
 	velocity.x = 0
 	anim.play("Death")
-	# Отключаем физику
+	
+	# 2. ДОБАВЬТЕ ЭТОТ БЛОК ПЕРЕД queue_free()
+	# Проверяем, загрузилась ли сцена
+	if gold_scene:
+		var coin = gold_scene.instantiate() # Создаем монету в памяти
+		coin.global_position = global_position # Ставим её на место трупа
+		get_tree().current_scene.add_child(coin) # Добавляем на карту
+	
+	# Отключаем коллизии, чтобы игрок не спотыкался о труп
 	$CollisionShape2D.set_deferred("disabled", true)
-	$AttackRange/CollisionShape2D.set_deferred("disabled", true)
-	$Detector/CollisionShape2D.set_deferred("disabled", true)
 	
 	await anim.animation_finished
 	queue_free()

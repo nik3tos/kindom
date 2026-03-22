@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doyv1d218qoh"
-path="res://.godot/imported/MonedaR.png-12c42e1b7ec1cc80f40a5a62dd1b5eb6.ctex"
+uid="uid://bjahqyd1jmd73"
+path="res://.godot/imported/spr_coin_strip4.png-0764fe3a362950ad8a744deb561a0de5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://oak_woods_v1.0/Coin_Gems (1)/MonedaR.png"
-dest_files=["res://.godot/imported/MonedaR.png-12c42e1b7ec1cc80f40a5a62dd1b5eb6.ctex"]
+source_file="res://Collectibles/Coin_Gems (1)/spr_coin_strip4.png"
+dest_files=["res://.godot/imported/spr_coin_strip4.png-0764fe3a362950ad8a744deb561a0de5.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjahqyd1jmd73"
-path="res://.godot/imported/spr_coin_strip4.png-218582b63c885a63ccdf19a67e51672f.ctex"
+uid="uid://dpbdp1wpejmtk"
+path="res://.godot/imported/spr_coin_gri.png-983aefef590e57f281e23f1c11dbad38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://oak_woods_v1.0/Coin_Gems (1)/spr_coin_strip4.png"
-dest_files=["res://.godot/imported/spr_coin_strip4.png-218582b63c885a63ccdf19a67e51672f.ctex"]
+source_file="res://Collectibles/Coin_Gems (1)/spr_coin_gri.png"
+dest_files=["res://.godot/imported/spr_coin_gri.png-983aefef590e57f281e23f1c11dbad38.ctex"]
 
 [params]
 
