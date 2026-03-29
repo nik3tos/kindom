@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6v7ft3n3s485"
-path="res://.godot/imported/Death.png-9575869ac30290a1441369acb1dc102d.ctex"
+uid="uid://dmqkredqxuf7l"
+path="res://.godot/imported/Idle.png-7ffab2cf33987d241315b6e9f61ba799.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mobs/Goblin/Death.png"
-dest_files=["res://.godot/imported/Death.png-9575869ac30290a1441369acb1dc102d.ctex"]
+source_file="res://Mobs/Goblin/sprites/Idle.png"
+dest_files=["res://.godot/imported/Idle.png-7ffab2cf33987d241315b6e9f61ba799.ctex"]
 
 [params]
 

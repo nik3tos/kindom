@@ -1,10 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://03x1h5ek80ox"]
+[gd_scene format=3 uid="uid://03x1h5ek80ox"]
 
-[ext_resource type="Script" uid="uid://ce8whhqknkpa1" path="res://Mobs/Goblin/Goblin/гоблин.gd" id="1_d0v4c"]
-[ext_resource type="Texture2D" uid="uid://ol1qva8fvjft" path="res://Mobs/Goblin/Attack.png" id="2_5whae"]
-[ext_resource type="Texture2D" uid="uid://c6v7ft3n3s485" path="res://Mobs/Goblin/Death.png" id="3_m6a06"]
-[ext_resource type="Texture2D" uid="uid://dmqkredqxuf7l" path="res://Mobs/Goblin/Idle.png" id="4_1raqc"]
-[ext_resource type="Texture2D" uid="uid://3dupteb2pbx0" path="res://Mobs/Goblin/Run.png" id="5_jrf3s"]
+[ext_resource type="Script" uid="uid://ce8whhqknkpa1" path="res://Mobs/Goblin/гоблин.gd" id="1_d0v4c"]
+[ext_resource type="Texture2D" uid="uid://ol1qva8fvjft" path="res://Mobs/Goblin/sprites/Attack.png" id="2_5whae"]
+[ext_resource type="Texture2D" uid="uid://c6v7ft3n3s485" path="res://Mobs/Goblin/sprites/Death.png" id="3_m6a06"]
+[ext_resource type="Texture2D" uid="uid://dmqkredqxuf7l" path="res://Mobs/Goblin/sprites/Idle.png" id="4_1raqc"]
+[ext_resource type="Texture2D" uid="uid://3dupteb2pbx0" path="res://Mobs/Goblin/sprites/Run.png" id="5_jrf3s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7xj5j"]
 atlas = ExtResource("2_5whae")
@@ -210,36 +210,39 @@ size = Vector2(16, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0v4c"]
 size = Vector2(52, 48)
 
-[node name="Goblin" type="CharacterBody2D"]
+[node name="Goblin" type="CharacterBody2D" unique_id=697701287]
 script = ExtResource("1_d0v4c")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=502380447]
 sprite_frames = SubResource("SpriteFrames_wmty8")
 animation = &"Attack"
 autoplay = "Idle"
 frame = 7
 frame_progress = 0.46217605
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1760777269]
 position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_4wera")
 
-[node name="Detector" type="Area2D" parent="."]
-collision_mask = 3
+[node name="Detector" type="Area2D" parent="." unique_id=1281213568]
+collision_layer = 0
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" unique_id=1505083594]
 shape = SubResource("CircleShape2D_cq556")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1614767323]
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=903767015]
 position = Vector2(3, -3)
 shape = SubResource("RectangleShape2D_hfjxc")
 
-[node name="AttackRange" type="Area2D" parent="."]
-collision_mask = 3
+[node name="AttackRange" type="Area2D" parent="." unique_id=1581352120]
+collision_layer = 0
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" unique_id=1820883834]
 position = Vector2(-2, 3)
 shape = SubResource("RectangleShape2D_d0v4c")
 

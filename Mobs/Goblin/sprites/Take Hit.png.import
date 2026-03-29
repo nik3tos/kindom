@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmqkredqxuf7l"
-path="res://.godot/imported/Idle.png-e54d53d8265922e57bb3427eabc82c69.ctex"
+uid="uid://dokxvbiakregt"
+path="res://.godot/imported/Take Hit.png-9f33f3cf9c5fe63f19ae3ecdd32ba579.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mobs/Goblin/Idle.png"
-dest_files=["res://.godot/imported/Idle.png-e54d53d8265922e57bb3427eabc82c69.ctex"]
+source_file="res://Mobs/Goblin/sprites/Take Hit.png"
+dest_files=["res://.godot/imported/Take Hit.png-9f33f3cf9c5fe63f19ae3ecdd32ba579.ctex"]
 
 [params]
 

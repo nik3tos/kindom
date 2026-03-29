@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dokxvbiakregt"
-path="res://.godot/imported/Take Hit.png-dcde05fcf083ec778f000577e888347e.ctex"
+uid="uid://c6v7ft3n3s485"
+path="res://.godot/imported/Death.png-047000ac22fa976f72be64496883528a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mobs/Goblin/Take Hit.png"
-dest_files=["res://.godot/imported/Take Hit.png-dcde05fcf083ec778f000577e888347e.ctex"]
+source_file="res://Mobs/Goblin/sprites/Death.png"
+dest_files=["res://.godot/imported/Death.png-047000ac22fa976f72be64496883528a.ctex"]
 
 [params]
 

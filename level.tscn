@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cifm3n5qxriyy" path="res://aaw6zrcrn-removebg-preview.png" id="7_8cye3"]
 [ext_resource type="Texture2D" uid="uid://ddx2rylfsl0sr" path="res://oak_woods_v1.0/circle.png" id="8_km5ld"]
 [ext_resource type="PackedScene" uid="uid://dbc0uhwssk1ju" path="res://Mobs/skeleton.tscn" id="9_i2t4f"]
-[ext_resource type="PackedScene" uid="uid://03x1h5ek80ox" path="res://Mobs/Goblin/Goblin/Гоблин.tscn" id="11_2orkt"]
+[ext_resource type="PackedScene" uid="uid://03x1h5ek80ox" path="res://Mobs/Goblin/Гоблин.tscn" id="11_2orkt"]
 [ext_resource type="AudioStream" uid="uid://dv13lsuyd04w7" path="res://assets/sounds/день.mp3" id="12_8b0r0"]
 [ext_resource type="AudioStream" uid="uid://jx1hd26afxlm" path="res://assets/sounds/ночь.mp3" id="13_h6smj"]
 
