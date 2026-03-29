@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://ddx2rylfsl0sr" path="res://oak_woods_v1.0/circle.png" id="8_km5ld"]
 [ext_resource type="PackedScene" uid="uid://dbc0uhwssk1ju" path="res://Mobs/skeleton.tscn" id="9_i2t4f"]
 [ext_resource type="PackedScene" uid="uid://03x1h5ek80ox" path="res://Mobs/Goblin/Goblin/Гоблин.tscn" id="11_2orkt"]
+[ext_resource type="AudioStream" uid="uid://dv13lsuyd04w7" path="res://assets/sounds/день.mp3" id="12_8b0r0"]
+[ext_resource type="AudioStream" uid="uid://jx1hd26afxlm" path="res://assets/sounds/ночь.mp3" id="13_h6smj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i2t4f"]
 texture = ExtResource("5_km5ld")
@@ -637,5 +639,14 @@ position = Vector2(440, 514)
 
 [node name="Goblin" parent="Goblin" unique_id=322678231 instance=ExtResource("11_2orkt")]
 position = Vector2(1704, 545)
+
+[node name="DayMusic" type="AudioStreamPlayer2D" parent="." unique_id=2127917953]
+stream = ExtResource("12_8b0r0")
+autoplay = true
+
+[node name="NightMusic" type="AudioStreamPlayer2D" parent="." unique_id=1675575901]
+stream = ExtResource("13_h6smj")
+volume_db = -80.0
+autoplay = true
 
 [connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]
