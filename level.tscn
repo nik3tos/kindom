@@ -565,6 +565,14 @@ offset_bottom = 213.0
 value = 100.0
 texture_progress = ExtResource("7_8cye3")
 
+[node name="GoldText" type="Label" parent="CanvasLayer" unique_id=1711022623]
+offset_left = 5.0
+offset_top = 73.0
+offset_right = 163.55312
+offset_bottom = 147.14354
+scale = Vector2(2.946088, 2.6762443)
+text = "   0"
+
 [node name="GameOverScreen" type="ColorRect" parent="CanvasLayer" unique_id=2054348591]
 visible = false
 modulate = Color(0.105882354, 0.003921569, 0.003921569, 0.8352941)
