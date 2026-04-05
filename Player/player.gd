@@ -14,7 +14,10 @@ const JUMP_VELOCITY = -400.0
 
 # --- ПЕРЕМЕННЫЕ ---
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var gold = 0 
+var gold = 0:
+	set(value):
+    	gold = value
+    	update_gold_ui() 
 var state = MOVE
 var run_speed = 1
 var combo = false
@@ -38,6 +41,7 @@ var health = 100:
 func _ready():
 	animPlayer.animation_finished.connect(_on_animation_finished)
 	update_health_bar()
+	update_gold_ui()
 	
 	if sword_area_col:
 		sword_area_col.disabled = true
@@ -190,6 +194,12 @@ func update_health_bar():
 	var bar = get_tree().current_scene.find_child("HealthBar", true, false)
 	if bar:
 		bar.value = health
+
+func update_gold_ui():
+  # Ищем наш новый текст в интерфейсе
+	var label = get_tree().current_scene.find_child("GoldText", true, false)
+	if label:
+    	label.text = gold
 
 func update_stamina_bar():
 	var bar = get_tree().current_scene.find_child("StaminaBar", true, false)
