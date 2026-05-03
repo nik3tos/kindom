@@ -1,0 +1,66 @@
+name: "Godot Web Deployment"
+
+on:
+  push:
+    branches: ["master", "main"]
+
+env:
+  GODOT_VERSION: "4.6"
+  EXPORT_NAME: "Web"
+  EXPORT_DIR: "build/web"
+  TARGET: "${{ vars.ITCH_USERNAME }}/${{ vars.ITCH_GAME_ID }}:web"
+  # Складываем все инструменты в одну папку для кэша
+  TOOLS_DIR: "${{ github.workspace }}/.tools"
+  TEMPLATES_DIR: "~/.local/share/godot/export_templates"
+
+jobs:
+  export-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      # 1. Единый кэш на всё (Godot + Butler)
+      - name: Restore Tools Cache
+        id: cache-tools
+        uses: actions/cache@v5
+        with:
+          path: |
+            ${{ env.TOOLS_DIR }}
+            ${{ env.TEMPLATES_DIR }}
+          key: ${{ runner.os }}-tools-g${{ env.GODOT_VERSION }}-b-latest
+
+      # 2. Скачивание всего железа (только если кэш пуст)
+      - name: Install Godot & Butler
+        if: steps.cache-tools.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ${{ env.TOOLS_DIR }} ${{ env.TEMPLATES_DIR }}/${{ env.GODOT_VERSION }}.stable
+
+          # Качаем и ставим Godot
+          curl -L -o godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip"
+          unzip -q godot.zip -d ${{ env.TOOLS_DIR }}
+          mv ${{ env.TOOLS_DIR }}/Godot_v* ${{ env.TOOLS_DIR }}/godot
+          chmod +x ${{ env.TOOLS_DIR }}/godot
+
+          # Качаем Web-шаблоны
+          curl -L -o tpz.zip "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz"
+          unzip -q tpz.zip "templates/web_*" "templates/version.txt"
+          mv templates/* ${{ env.TEMPLATES_DIR }}/${{ env.GODOT_VERSION }}.stable/
+
+          # Качаем Butler
+          curl -L -o butler.zip https://github.com/itchio/butler/releases/latest/download/butler-linux-amd64.zip
+          unzip -q butler.zip -d bin-dist
+          mv bin-dist/linux-amd64/butler ${{ env.TOOLS_DIR }}/butler
+          chmod +x ${{ env.TOOLS_DIR }}/butler
+
+      # 3. Экспорт (Godot сам создаст EXPORT_DIR)
+      - name: Export Web Build
+        run: |
+          mkdir -p ${{ env.EXPORT_DIR }}
+          ${{ env.TOOLS_DIR }}/godot --headless --export-release "${{ env.EXPORT_NAME }}" ${{ env.EXPORT_DIR }}/index.html
+
+      # 4. Выгрузка на itch.io
+      - name: Deploy via Butler
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: ${{ env.TOOLS_DIR }}/butler push "${{ env.EXPORT_DIR }}" "${{ env.TARGET }}"
